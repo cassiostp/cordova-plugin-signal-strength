@@ -13,6 +13,7 @@ import android.telephony.CellSignalStrengthLte;
 import android.telephony.CellSignalStrengthWcdma;
 import android.telephony.TelephonyManager;
 import android.util.ArrayMap;
+import android.util.JsonWriter;
 import android.util.Log;
 
 import org.apache.cordova.CordovaPlugin;
@@ -60,7 +61,8 @@ public class SignalStrength extends CordovaPlugin {
             }
             if (allDbm.size() > 0) {
                 Log.d("SIGNAL-STRENGTHS", allDbm.toString());
-                callbackContext.success((JSONObject) allDbm);
+                JSONObject allDbmJson = new JSONObject(allDbm);
+                callbackContext.success(allDbmJson);
                 return true;
             }
             return false;
