@@ -1,4 +1,4 @@
-package org.apache.cordova.signalStrength;
+package org.apache.cordova.SignalStrength;
 
 import android.content.Context;
 
