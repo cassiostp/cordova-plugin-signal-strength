@@ -2,6 +2,7 @@ package org.apache.cordova.plugin;
 
 import android.content.Context;
 
+import android.provider.Settings;
 import android.telephony.CellInfo;
 import android.telephony.CellInfoCdma;
 import android.telephony.CellInfoGsm;
@@ -64,12 +65,20 @@ public class SignalStrength extends CordovaPlugin {
                 JSONObject allDbmJson = new JSONObject(allDbm);
                 callbackContext.success(allDbmJson);
                 return true;
+            } else if (isAirplaneModeOn(cordova.getContext())) {
+                callbackContext.success(255);
+                return true;
             } else {
                 return false;
             }
         } else {
             return false;
         }
+    }
+
+    private static boolean isAirplaneModeOn(Context context) {
+        return Settings.System.getInt(context.getContentResolver(),
+                Settings.Global.AIRPLANE_MODE_ON, 0) != 0;
     }
 
 }
