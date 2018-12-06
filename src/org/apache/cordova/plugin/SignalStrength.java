@@ -19,6 +19,7 @@ import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.CallbackContext;
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.List;
 import java.util.Map;
@@ -36,22 +37,30 @@ public class SignalStrength extends CordovaPlugin {
                 for (final CellInfo info : cellInfoList) {
                     if (info instanceof CellInfoCdma) {
                         final CellSignalStrengthCdma cdma = ((CellInfoCdma) info).getCellSignalStrength();
-                        allDbm.put("cdma", cdma.getDbm());
+                        if (info.isRegistered()) {
+                            allDbm.put("cdma", cdma.getDbm());
+                        }
                     } else if (info instanceof CellInfoGsm) {
                         final CellSignalStrengthGsm gsm = ((CellInfoGsm) info).getCellSignalStrength();
-                        allDbm.put("gsm", gsm.getDbm());
+                        if (info.isRegistered()) {
+                            allDbm.put("gsm", gsm.getDbm());
+                        }
                     } else if (info instanceof CellInfoWcdma) {
                         final CellSignalStrengthWcdma wcdma = ((CellInfoWcdma) info).getCellSignalStrength();
-                        allDbm.put("wcdma", wcdma.getDbm());
+                        if (info.isRegistered()) {
+                            allDbm.put("wcdma", wcdma.getDbm());
+                        }
                     } else if (info instanceof CellInfoLte) {
                         final CellSignalStrengthLte lte = ((CellInfoLte) info).getCellSignalStrength();
-                        allDbm.put("lte", lte.getDbm());
+                        if (info.isRegistered()) {
+                            allDbm.put("lte", lte.getDbm());
+                        }
                     }
                 }
             }
             if (allDbm.size() > 0) {
                 Log.d("SIGNAL-STRENGTHS", allDbm.toString());
-                callbackContext.success((JSONArray) allDbm);
+                callbackContext.success((JSONObject) allDbm);
                 return true;
             }
             return false;
