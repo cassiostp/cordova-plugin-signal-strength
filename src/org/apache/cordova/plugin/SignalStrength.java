@@ -64,10 +64,12 @@ public class SignalStrength extends CordovaPlugin {
                 JSONObject allDbmJson = new JSONObject(allDbm);
                 callbackContext.success(allDbmJson);
                 return true;
+            } else {
+                return false;
             }
+        } else {
             return false;
         }
-        return false;
     }
 
 }
