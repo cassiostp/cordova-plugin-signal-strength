@@ -61,7 +61,6 @@ public class SignalStrength extends CordovaPlugin {
                 }
             }
             if (allDbm.size() > 0) {
-                Log.d("SIGNAL-STRENGTHS", allDbm.toString());
                 JSONObject allDbmJson = new JSONObject(allDbm);
                 callbackContext.success(allDbmJson);
                 return true;
